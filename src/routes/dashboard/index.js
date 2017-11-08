@@ -4,8 +4,7 @@ import home from 'src/domains/@modules/dashboard/routes'
 import forms from 'src/domains/demo/forms/routes'
 import graphics from 'src/domains/demo/graphics/routes'
 import calendar from 'src/domains/demo/calendar/routes'
-import user from 'src/domains/admin/user/routes'
-import organization from 'src/domains/admin/organization/routes'
+import { routes as admin } from 'src/domains/admin'
 import categories from 'src/domains/general/category/routes'
 
 /*
@@ -22,13 +21,12 @@ import categories from 'src/domains/general/category/routes'
  * @type Array
  */
 export default [
-  route('/dashboard', '', 'domains/@modules/dashboard/components/Index', {}, {}, [
+  route('/dashboard', '', 'domains/@modules/dashboard/components/DashboardIndex', {}, {}, [
     ...home,
     ...forms,
     ...graphics,
     ...calendar,
-    ...user,
-    ...organization,
+    ...admin,
     ...categories
   ])
 ]
