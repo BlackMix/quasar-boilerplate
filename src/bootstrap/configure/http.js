@@ -101,28 +101,28 @@ export const httpError = (error, router, store) => {
 
   /**
    * @param {error.response.status}
-   * @default {Error500}
+   * @default {500,501}
    * @returns {toast}
    */
-  if (error.response.status === 500) {
+  if ([500, 501].includes(error.response.status)) {
     toast('Error in server!', 'warning', 10000, 'white', 'rgb(244, 185, 66)')
   }
 
   /**
    * @param {error.response.status}
-   * @default {Error301}
+   * @default {300,301}
    * @returns {toast}
    */
-  if (error.response.status === 301) {
+  if ([300, 301].includes(error.response.status)) {
     toast('This url does not exist or has been changed.', 'warning', 10000, 'white', 'rgb(244, 185, 66)')
   }
 
   /**
    * @param {error.response.status}
-   * @default {Error401}
+   * @default {400,401}
    * @returns {toast}
    */
-  if (error.response.status === 401) {
+  if ([400, 401].includes(error.response.status)) {
     toast('Error invalid authentication credentials!', 'warning', 10000, 'white', 'rgb(244, 185, 66)')
   }
 
