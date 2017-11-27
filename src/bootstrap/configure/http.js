@@ -1,6 +1,6 @@
 import { serialize } from 'genesis/infra/services/http/resource'
 import { toast } from 'genesis/support/message'
-
+import { httpErrors } from 'src/bootstrap/i18n'
 const ttl = 60000
 
 /**
@@ -100,30 +100,16 @@ export const httpError = (error, router, store) => {
   }
 
   /**
-   * @param {error.response.status}
-   * @default {500,501}
-   * @returns {toast}
+   * @param {httpErrors}
    */
-  if ([500, 501].includes(error.response.status)) {
-    toast('Error in server!', 'warning', 10000, 'white', 'rgb(244, 185, 66)')
-  }
-
-  /**
-   * @param {error.response.status}
-   * @default {300,301}
-   * @returns {toast}
-   */
-  if ([300, 301].includes(error.response.status)) {
-    toast('This url does not exist or has been changed.', 'warning', 10000, 'white', 'rgb(244, 185, 66)')
-  }
-
-  /**
-   * @param {error.response.status}
-   * @default {400,401}
-   * @returns {toast}
-   */
-  if ([400, 401].includes(error.response.status)) {
-    toast('Error invalid authentication credentials!', 'warning', 10000, 'white', 'rgb(244, 185, 66)')
+  if (error.response.status) {
+    if (error.response.message) {
+      toast(error.response.message, 'warning', 10000, 'white', 'rgb(244, 185, 66)')
+    }
+    else {
+      let status = httpErrors.find(b => b[error.response.status])
+      toast(status[error.response.status], 'warning', 10000, 'white', 'rgb(244, 185, 66)')
+    }
   }
 
   return error
